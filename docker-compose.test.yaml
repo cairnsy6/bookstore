@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api:
+    container_name: book_store_api
+    ports:
+      - 3000:3000
+    environment:
+      - PGUSER=rhysc
+      - PGHOST=db
+      - PGPASSWORD=password
+      - PGDATABASE=book_store_test
+      - PGPORT=5432
+      - NODE_ENV=test
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: book_store_db
+    expose:
+      - "5432"
+    volumes:
+      - "test_db:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB=book_store_test
+      - POSTGRES_USER=rhysc
+      - POSTGRES_PASSWORD=password
+volumes:
+  test_db:

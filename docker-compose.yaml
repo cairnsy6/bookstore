@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    image: node:12.18.4
+    working_dir: /server
+    volumes:
+      - type: bind
+        source: ./api
+        target: /server
+
+  db:
+    image: postgres:12.4
+    environment:
+      - POSTGRES_USER=rhysc
+    volumes:
+      - "./db/:/docker-entrypoint-initdb.d/:ro"
